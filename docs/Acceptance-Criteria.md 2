@@ -1,0 +1,351 @@
+Custom Results Reports - Acceptance Criteria
+User Story (i)
+ As a centre user
+ I want to filter which candidates' results are included in my report
+ So that I only generate a file for the series, centre, qualification and syllabus I need
+
+Acceptance Criteria
+Filter controls are available
+AC1. 
+GIVEN I am on the Download Results screen
+WHEN the page loads
+THEN I see filter controls for Series, Centre, Qualification and Syllabus, each defaulting to a sensible value
+Filters update the report live
+AC2. 
+GIVEN I have the Download Results screen open
+WHEN I change any filter
+THEN the preview and the file that will be downloaded update immediately without a page reload
+Qualification and Syllabus support All
+AC3. 
+GIVEN I am setting filters
+WHEN I open the Qualification or Syllabus filter
+THEN I can choose All to include every qualification or syllabus the centre is entered for
+Reports are scoped to one centre
+AC4. 
+GIVEN I am signed in
+WHEN I use the Download Results screen
+THEN I can only generate files for centres I have been granted access to
+No matching candidates warning
+AC5. 
+GIVEN I have set filters
+WHEN the filter combination matches zero candidates
+THEN I am told clearly before I can configure fields or attempt a download
+User Story (ii)
+ As a centre user
+ I want to choose which extra details are included in my file, in addition to the fields every file must contain
+ So that the file matches what my downstream system or colleagues need
+
+Acceptance Criteria
+Standard fields always included
+AC1. 
+GIVEN I open the Download Results screen
+WHEN I view the Standard fields panel
+THEN I see Centre number, Series, Candidate number, Candidate name and UCI listed, and I cannot switch any of them off
+Standard fields are marked as locked
+AC2. 
+GIVEN I view the Standard fields panel
+WHEN the panel is displayed
+THEN each standard field is shown as locked and a count of how many are always included is visible
+Additional fields are grouped
+AC3. 
+GIVEN I view the Additional fields panel
+WHEN the panel is displayed
+THEN the fields are grouped into four labelled categories: Centre & qualification, Candidate details, Syllabus result, Component result
+Toggle a field on or off
+AC4. 
+GIVEN I view an additional field in a group
+WHEN I switch its toggle
+THEN its label and description are shown next to the toggle, and the preview updates to include or exclude that field
+Expand and collapse a group
+AC5. 
+GIVEN I view a field group
+WHEN I click the group header
+THEN the group expands or collapses, and a running count of selected fields in that group is shown
+Select all or clear all
+AC6. 
+GIVEN I view the Additional fields panel
+WHEN I click Select all or Clear all
+THEN every additional field is selected or deselected accordingly, and the x of y selected total updates immediately
+Selection updates the preview immediately
+AC7. 
+GIVEN I change a field selection
+WHEN the change is made
+THEN the live preview and the selected-field count update without a page reload
+User Story (iii)
+ As a centre user
+ I want to control the order fields appear in my file
+ So that the output lines up with the layout my downstream system expects
+
+Acceptance Criteria
+Standard fields stay first and fixed
+AC1. 
+GIVEN I view the Standard fields panel
+WHEN I look at the field order
+THEN the five standard fields always appear first, in a fixed order that cannot be changed
+Reorder fields within a group
+AC2. 
+GIVEN I have fields in a group
+WHEN I drag a field, or use its move up / move down controls
+THEN the field moves to its new position within the group and the preview updates immediately
+Reorder whole groups
+AC3. 
+GIVEN I view the Additional fields panel
+WHEN I drag a group, or use the move up / move down controls on its header
+THEN the group moves to its new position, changing which group's fields appear first among the additional columns
+Reordering works without a mouse
+AC4. 
+GIVEN I am using a keyboard
+WHEN I use the move up / move down controls on a field or group
+THEN I can reorder fields and groups without needing to drag anything
+Preview matches the download exactly
+AC5. 
+GIVEN I have set a field and group order
+WHEN I compare the live preview to the downloaded file
+THEN the column order is identical for every supported format
+Order is sent to the export process
+AC6. 
+GIVEN I have set a field and group order
+WHEN I download the file
+THEN the chosen order is submitted as an ordered list so the generated file reproduces that exact order
+Saved templates restore the order
+AC7. 
+GIVEN I saved a template with a specific field and group order
+WHEN I re-apply that template
+THEN the field selection and the exact group/field order are both restored as they were when saved
+User Story (iv)
+ As a centre user
+ I want to choose the file format
+ So that I can open the file the way I need to - spreadsheet, system import, fixed-width upload, or XML feed
+
+Acceptance Criteria
+Four formats are offered
+AC1. 
+GIVEN I view the Format panel
+WHEN the panel is displayed
+THEN I see CSV, DAT, XLSX and XML, each with a short description of what it is best for
+CSV is the default
+AC2. 
+GIVEN I open the Download Results screen
+WHEN the page loads
+THEN CSV is selected by default
+Format choice does not reset fields
+AC3. 
+GIVEN I have selected fields and an order
+WHEN I switch to a different format
+THEN my field selection and field order remain unchanged
+CSV opens correctly in Excel
+AC4. 
+GIVEN I download a CSV file
+WHEN I open it in Excel
+THEN it opens correctly because the file includes a UTF-8 byte-order mark
+DAT is fixed-width
+AC5. 
+GIVEN I select DAT and view the preview
+WHEN the preview is shown
+THEN there is no header row, every column has a defined width, and a character ruler with the total record length is displayed
+XLSX is a genuine workbook
+AC6. 
+GIVEN I download an XLSX file
+WHEN I open it
+THEN it is a real workbook with one worksheet and a header row, not a renamed CSV
+XML is valid and structured
+AC7. 
+GIVEN I download an XML file
+WHEN I inspect it
+THEN each result row is wrapped in a RESULT element with one child element per column, named after the column header, and the file is valid, well-formed XML
+User Story (v)
+ As a centre user
+ I want to see a sample of my file before I download it
+ So that I can check the fields, format and data look right first
+
+Acceptance Criteria
+Preview matches the file
+AC1. 
+GIVEN I have set fields, order and format
+WHEN I view the preview
+THEN it uses the exact same columns, order and formatting rules as the file that will be downloaded
+Preview updates live
+AC2. 
+GIVEN I am viewing the preview
+WHEN I change fields, field order or format
+THEN the preview updates immediately
+Preview rendering matches the format
+AC3. 
+GIVEN I have chosen a format
+WHEN I view the preview
+THEN CSV, DAT and XML show literal file text, and XLSX renders as a table with additional columns visually distinguished from standard ones
+No results notice
+AC4. 
+GIVEN my filters match no candidates
+WHEN I view the preview
+THEN a clear no-results notice is shown and the download action is disabled
+Row count is shown
+AC5. 
+GIVEN I have results matching my filters
+WHEN I view the preview
+THEN I can see the total number of matching rows, for example Showing first 4 of 4,820 rows
+User Story (vi)
+ As a centre user
+ I want to download the finished file in one action
+ So that I can save it where I need it
+
+Acceptance Criteria
+Single download action
+AC1. 
+GIVEN I have set fields, order and format
+WHEN I click Download
+THEN the file is generated and downloaded using my current selection
+Downloading state prevents duplicates
+AC2. 
+GIVEN I click Download
+WHEN the file is being produced
+THEN the button shows a Downloading state and is disabled so I cannot trigger a duplicate request
+File name identifies centre and series
+AC3. 
+GIVEN I download a file
+WHEN I check its file name
+THEN it identifies the centre and series, for example results_A23DT9_June2026.csv
+Clear error on failure
+AC4. 
+GIVEN my download request fails
+WHEN I see the result
+THEN I am shown a clear error notice, I can retry, and no partial or corrupt file is saved to my device
+Large files build in the background
+AC5. 
+GIVEN I request a large file
+WHEN I click Download
+THEN the file is generated in the background and I can keep working while it is prepared
+My reports shows status
+AC6. 
+GIVEN I have requested one or more files
+WHEN I open My reports
+THEN each file is listed with a clear status - Queued, Generating or Ready - and I can download it once it is Ready
+Files expire after a retention period
+AC7. 
+GIVEN a background-generated file has been ready for a defined period
+WHEN the retention period passes
+THEN the file is no longer available to download
+User Story (vii)
+ As a centre user
+ I want to save my format and field selection as a named template
+ So that I can reuse it next time instead of starting from a blank page
+
+Acceptance Criteria
+Save the current selection
+AC1. 
+GIVEN I have set a format and field selection
+WHEN I choose to save it as a template and give it a name
+THEN the template is saved and listed under Saved templates
+Re-apply a template
+AC2. 
+GIVEN I have one or more saved templates
+WHEN I select a saved template
+THEN its format and field selection are applied immediately
+Delete a template
+AC3. 
+GIVEN I have a saved template
+WHEN I delete it
+THEN it is removed from the list, and the Saved templates section disappears once none remain
+Templates are private to the centre
+AC4. 
+GIVEN I am signed in to a centre
+WHEN I view Saved templates
+THEN I only see templates saved for that centre
+Template limit is enforced
+AC5. 
+GIVEN my centre already has 10 (configurable) saved templates
+WHEN I save a new template
+THEN the oldest template is discarded to keep the total at 10
+Template captures order
+AC6. 
+GIVEN I save a template with a specific field and group order
+WHEN I re-apply that template later
+THEN the exact column order is restored, not only which fields were selected
+User Story (viii)
+ As a centre user
+ I want to share a template with named colleagues or a team
+ So that we use the same report definition without sharing underlying data
+
+Acceptance Criteria
+Share with named colleagues or a team
+AC1. 
+GIVEN I have a saved template
+WHEN I choose to share it
+THEN I can share it with one or more named colleagues, or with a team
+Only the selection is shared
+AC2. 
+GIVEN I have shared a template
+WHEN a colleague uses it
+THEN they see only their own centre's data; the underlying results data is never shared
+Permission levels
+AC3. 
+GIVEN I am sharing a template
+WHEN I set a permission for a colleague or team
+THEN I can choose Can use (apply only) or Can edit (can change it for everyone it is shared with)
+Edits propagate to everyone
+AC4. 
+GIVEN a shared template has Can edit permission
+WHEN the owner edits it
+THEN everyone it is shared with sees the updated version
+Duplicate to keep a private copy
+AC5. 
+GIVEN a template has been shared with me
+WHEN I duplicate it
+THEN I get my own private copy that other people's edits will not affect
+User Story (ix)
+ As a centre user
+ I want to sign in once and only see data for centres I am permitted to access
+ So that my reports stay secure and relevant
+
+Acceptance Criteria
+Sign in with SAP CDC
+AC1. 
+GIVEN I open the portal
+WHEN I am not signed in
+THEN I sign in through the organisation's SAP CDC identity provider, with multi-factor authentication where enabled, and no separate portal password is needed
+Centres are loaded and enforced
+AC2. 
+GIVEN I have signed in
+WHEN the portal loads
+THEN only the centres I am permitted to access are available for filtering, preview and download
+Sessions refresh while active
+AC3. 
+GIVEN I am signed in and working
+WHEN my session nears expiry
+THEN it refreshes automatically; signing out ends the session
+No-access message
+AC4. 
+GIVEN I do not have access to Download Results
+WHEN I try to open the screen
+THEN I see a clear no-access message instead of the report screen
+User Story (x)
+ As a product owner
+ I want the feature to be reliable, accessible and well tested
+ So that it can be released with confidence
+
+Acceptance Criteria
+Full keyboard operability
+AC1. 
+GIVEN I am using a keyboard only
+WHEN I interact with toggles, buttons and drag handles
+THEN every control is reachable and operable, with a visible focus state
+Assistive technology announcements
+AC2. 
+GIVEN I am using assistive technology
+WHEN a field, group or format selection changes
+THEN the updated counts and selections are announced
+Performance at full scale
+AC3. 
+GIVEN a centre has its full results set loaded, not sample data
+WHEN I filter, preview or download
+THEN the page remains responsive
+Automated test coverage
+AC4. 
+GIVEN the feature is built
+WHEN the test suite runs
+THEN it covers field selection and toggling, field and group reordering, format switching, preview rendering per format, template save/apply/delete, and the download success and error paths
+Layouts validated with downstream systems
+AC5. 
+GIVEN the DAT fixed-width layout is finalised
+WHEN it is checked against downstream systems' expected layouts
+THEN it is validated before general release
